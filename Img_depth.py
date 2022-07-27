@@ -41,7 +41,7 @@ def image_capture():
     data2 = []
     data3 = []
     fps = 0
-    FPS = 100000
+    FPS = 300
     data_file = time.strftime('%Y%m%d%H%M%S',time.localtime()) + '.mat'
    
     while len(timesp1) < FPS:

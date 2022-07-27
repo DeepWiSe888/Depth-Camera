@@ -24,7 +24,7 @@ def main():
     # Set SVO path for playback
     
     input_path = sys.argv[1]
-    output_path = Path(sys.argv[2])
+    output_path = input_path.replace('.svo','.mat')
     init_parameters = sl.InitParameters()
     init_parameters.set_from_svo_file(input_path)
     
@@ -48,7 +48,7 @@ def main():
     D_data = []
     FNO = []
     fps = 0
-    data_file = time.strftime('%Y%m%d%H%M%S',time.localtime()) + '.mat'
+    # data_file = time.strftime('%Y%m%d%H%M%S',time.localtime()) + '.mat'
     nb_frames = zed.get_svo_number_of_frames()
     while True:
         if zed.grab() == sl.ERROR_CODE.SUCCESS:
@@ -88,8 +88,9 @@ def main():
                 break
 
     zed.close()
-    # sio.savemat(data_file,{'time':timesp,'frame':FNO,'R_data':R_data,'G_data':G_data,'B_data':B_data,'D_data':D_data})  # 保存RGBD  数据量很大慎用
-    sio.savemat(data_file,{'time':timesp,'frame':FNO})                                                                    # 保存帧号与时间戳
+
+    # sio.savemat(output_path,{'time':timesp,'frame':FNO,'R_data':R_data,'G_data':G_data,'B_data':B_data,'D_data':D_data})  # 保存RGBD  数据量很大慎用
+    sio.savemat(output_path,{'time':timesp,'frame':FNO})                                                                    # 保存帧号与时间戳
     print('over')
     return 0
 if  __name__ == "__main__":
